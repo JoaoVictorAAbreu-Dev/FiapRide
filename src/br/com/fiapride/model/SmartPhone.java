@@ -4,18 +4,50 @@ public class SmartPhone {
 
     private static final int BATERIA_MAXIMA = 100;
 
-    public String marca;
-    public int armazenamento;
-    public double tamanhoTela;
-    public int bateria;
+    private String marca;
+    private int armazenamento;
+    private double tamanhoTela;
+    private int bateria;
 
+    // Construtor
+    public SmartPhone(String marca, int armazenamento, double tamanhoTela) {
+        this.setMarca(marca);
+        this.setArmazenamento(armazenamento);
+        this.setTamanhoTela(tamanhoTela);
+        this.bateria = 0;
+    }
+
+    // Getters
+    public String getMarca() { return this.marca; }
+    public int getArmazenamento() { return this.armazenamento; }
+    public double getTamanhoTela() { return this.tamanhoTela; }
+    public int getBateria() { return this.bateria; }
+
+    // Setters privados com regras
+    private void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    private void setArmazenamento(int armazenamento) {
+        if (armazenamento > 0) {
+            this.armazenamento = armazenamento;
+        } else {
+            System.out.println("Erro: armazenamento inválido.");
+        }
+    }
+
+    private void setTamanhoTela(double tamanhoTela) {
+        this.tamanhoTela = tamanhoTela;
+    }
+
+    // Métodos de negócio
     public void carregarBateria(int quantidade) {
         if (quantidade <= 0) {
             System.out.println("Erro: quantidade deve ser maior que zero.");
             return;
         }
-        bateria = Math.min(bateria + quantidade, BATERIA_MAXIMA);
-        System.out.println("Bateria: " + bateria + "%");
+        this.bateria = Math.min(this.bateria + quantidade, BATERIA_MAXIMA);
+        System.out.println("Bateria: " + this.bateria + "%");
     }
 
     public void instalarApp(int tamanhoEmMb) {
@@ -23,11 +55,11 @@ public class SmartPhone {
             System.out.println("Erro: tamanho inválido.");
             return;
         }
-        if (tamanhoEmMb > armazenamento) {
-            System.out.println("Erro: armazenamento insuficiente. Disponível: " + armazenamento + "MB");
+        if (tamanhoEmMb > this.armazenamento) {
+            System.out.println("Erro: armazenamento insuficiente. Disponível: " + this.armazenamento + "MB");
             return;
         }
-        armazenamento -= tamanhoEmMb;
-        System.out.println("App instalado! Armazenamento restante: " + armazenamento + "MB");
+        this.armazenamento -= tamanhoEmMb;
+        System.out.println("App instalado! Armazenamento restante: " + this.armazenamento + "MB");
     }
 }
