@@ -6,7 +6,7 @@ Classes, Objetos, Encapsulamento, Construtores, Associação e Herança em Java.
 
 ---
 
-##  Estrutura do Projeto
+## 📁 Estrutura do Projeto
 
 ```
 FiapRide
@@ -29,7 +29,7 @@ FiapRide
 
 ---
 
-##  Classes
+## 🧩 Classes
 
 ### Passageiro
 Representa um usuário cadastrado na plataforma FiapRide.
@@ -215,7 +215,7 @@ Objeto criado no microdesafio — encapsulamento e construtor.
 
 ---
 
-##  Como executar
+## ▶️ Como executar
 
 1. Clone o repositório:
 ```bash
@@ -230,7 +230,7 @@ git clone https://github.com/seu-usuario/fiap-poo.git
 
 ---
 
-##  Saída esperada
+## 🖥️ Saída esperada
 
 ### SistemaPrincipal
 ```
@@ -294,7 +294,7 @@ Erro: armazenamento insuficiente. Disponível: 88MB
 
 ---
 
-##  Conceitos aplicados por aula
+## 📚 Conceitos aplicados por aula
 
 | Aula | Conceito            | O que foi feito                                                       |
 |------|---------------------|-----------------------------------------------------------------------|
@@ -307,5 +307,5 @@ Erro: armazenamento insuficiente. Disponível: 88MB
 
 ---
 
-##  Autor
+## 👨‍💻 Autor
 **João Victor A. de Abreu** — FIAP Ciência da Computação
