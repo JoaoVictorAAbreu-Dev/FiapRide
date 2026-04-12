@@ -9,12 +9,16 @@ public class SmartPhone {
     private double tamanhoTela;
     private int bateria;
 
-    // Construtor
-    public SmartPhone(String marca, int armazenamento, double tamanhoTela) {
+    // Atributo de associação — indica o PAPEL do objeto: quem possui este aparelho
+    private Dono proprietario;
+
+    // Construtor — um SmartPhone só pode ser criado com um dono definido
+    public SmartPhone(String marca, int armazenamento, double tamanhoTela, Dono proprietario) {
         this.setMarca(marca);
         this.setArmazenamento(armazenamento);
         this.setTamanhoTela(tamanhoTela);
         this.bateria = 0;
+        this.proprietario = proprietario;
     }
 
     // Getters
@@ -22,6 +26,7 @@ public class SmartPhone {
     public int getArmazenamento() { return this.armazenamento; }
     public double getTamanhoTela() { return this.tamanhoTela; }
     public int getBateria() { return this.bateria; }
+    public Dono getProprietario() { return this.proprietario; }
 
     // Setters privados com regras
     private void setMarca(String marca) {
