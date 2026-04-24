@@ -2,7 +2,15 @@
 
 Projeto desenvolvido nas aulas de Programação Orientada a Objetos da FIAP.
 Simula uma plataforma de mobilidade urbana aplicando os fundamentos de
-Classes, Objetos, Encapsulamento, Construtores, Associação e Herança em Java.
+Classes, Objetos, Encapsulamento, Construtores, Associação, Herança e **Polimorfismo** em Java.
+
+---
+
+## 🗂️ Diagrama de Classes (UML)
+
+![Diagrama UML — FiapRide](FiapRide.png)
+
+> Diagrama gerado no Astah. Mostra as relações de Herança (`extends`) e Associação (`Tem-Um`) entre todas as classes do projeto.
 
 ---
 
@@ -21,8 +29,8 @@ FiapRide
         ├── Moto.java               ← subclasse de Veiculo (herança)
         ├── Viagem.java             ← associa Passageiro e Veiculo
         ├── SmartPhone.java         ← superclasse do objeto pessoal
-        ├── Android.java            ← subclasse de SmartPhone (herança)
-        ├── Iphone.java             ← subclasse de SmartPhone (herança)
+        ├── Android.java            ← subclasse de SmartPhone (herança + polimorfismo)
+        ├── Iphone.java             ← subclasse de SmartPhone (herança + polimorfismo)
         ├── Dono.java               ← associado ao SmartPhone
         └── Garrafa.java            ← objeto do microdesafio
 ```
@@ -151,11 +159,13 @@ Objeto pessoal encapsulado. Não pode existir sem um `Dono` definido.
 | armazenamento | int    | Espaço disponível em MB       |
 | tamanhoTela   | double | Tamanho da tela em polegadas  |
 | bateria       | int    | Nível da bateria de 0 a 100   |
+| valor         | double | Valor do aparelho em reais    |
 | proprietario  | Dono   | Dono do aparelho (associação) |
 
 | Método                                       | Descrição                                        |
 |----------------------------------------------|--------------------------------------------------|
 | `SmartPhone(marca, arm, tela, proprietario)` | Construtor — todos os parâmetros obrigatórios    |
+| `calcularTaxaSeguro()`                       | **Polimórfico** — retorna 10% do valor (genérico)|
 | `carregarBateria(int)`                       | Carrega bateria — bloqueia negativo, limita 100% |
 | `instalarApp(int)`                           | Instala app — bloqueia se sem espaço             |
 | `getMarca()`                                 | Retorna a marca                                  |
@@ -174,10 +184,11 @@ Teste do "É UM": Android **é um** SmartPhone ✔
 |---------------|--------|---------------------------|
 | versaoAndroid | String | Versão do sistema Android |
 
-| Método                                                   | Descrição                     |
-|----------------------------------------------------------|-------------------------------|
-| `Android(marca, arm, tela, proprietario, versaoAndroid)` | Construtor — usa `super(...)` |
-| `getVersaoAndroid()`                                     | Retorna a versão do Android   |
+| Método                                                   | Descrição                                              |
+|----------------------------------------------------------|--------------------------------------------------------|
+| `Android(marca, arm, tela, proprietario, versaoAndroid)` | Construtor — usa `super(...)`                          |
+| `calcularTaxaSeguro()`                                   | `@Override` — retorna **15%** do valor (ecossistema aberto) |
+| `getVersaoAndroid()`                                     | Retorna a versão do Android                            |
 
 ---
 
@@ -189,10 +200,11 @@ Teste do "É UM": Iphone **é um** SmartPhone ✔
 |------------|--------|-------------------------------|
 | versaoChip | String | Geração do chip Apple Silicon |
 
-| Método                                                  | Descrição                     |
-|---------------------------------------------------------|-------------------------------|
-| `Iphone(marca, arm, tela, proprietario, versaoChip)`   | Construtor — usa `super(...)` |
-| `getVersaoChip()`                                       | Retorna a versão do chip      |
+| Método                                                  | Descrição                                                |
+|---------------------------------------------------------|----------------------------------------------------------|
+| `Iphone(marca, arm, tela, proprietario, versaoChip)`   | Construtor — usa `super(...)`                            |
+| `calcularTaxaSeguro()`                                  | `@Override` — retorna **20%** do valor (produto premium) |
+| `getVersaoChip()`                                       | Retorna a versão do chip                                 |
 
 ---
 
@@ -225,8 +237,8 @@ git clone https://github.com/seu-usuario/fiap-poo.git
 2. Abra o projeto no **IntelliJ IDEA**
 
 3. Execute o arquivo desejado:
-    - `SistemaPrincipal.java` → testa Passageiro, Carro, Moto e Viagem
-    - `TesteSmartPhone.java` → testa Android, Iphone e Dono
+   - `SistemaPrincipal.java` → testa Passageiro, Carro, Moto e Viagem
+   - `TesteSmartPhone.java` → testa Android, Iphone, Dono e **Polimorfismo**
 
 ---
 
@@ -271,39 +283,51 @@ Saldo adicionado! Novo saldo: R$ 150.0
 Saldo da Ana consultado ATRAVÉS da Viagem: R$ 150.0
 ```
 
-### TesteSmartPhone
+### TesteSmartPhone — Polimorfismo
 ```
---- Teste SmartPhone: Herança ---
+══════════════════════════════════════════════
+   TESTE DE POLIMORFISMO — calcularTaxaSeguro
+══════════════════════════════════════════════
 
 Dono registrado: João
 Dono registrado: Lucia
+Dono registrado: Carlos
 
---- Teste de Herança ---
-Dono: João | Marca: Samsung | SO: Android 14
-Dona: Lucia | Marca: Apple | Chip: A18 Pro
+--- Simulação de Cotação de Seguros ---
 
---- Métodos herdados de SmartPhone ---
-Bateria: 80%
-App instalado! Armazenamento restante: 88MB
-Bateria: 100%
+Aparelho : Samsung Galaxy S24 (Android)
+Dono     : João
+Valor    : R$ 4500,00
+Taxa     : R$ 675,00          ← 15% — ecossistema aberto
+----------------------------------------------
+Aparelho : Apple iPhone 16 Pro (Iphone)
+Dono     : Lucia
+Valor    : R$ 9000,00
+Taxa     : R$ 1800,00         ← 20% — produto premium
+----------------------------------------------
+Aparelho : Motorola Edge (SmartPhone)
+Dono     : Carlos
+Valor    : R$ 2000,00
+Taxa     : R$ 200,00          ← 10% — regra genérica
+----------------------------------------------
 
---- Tentando burlar o sistema ---
-Erro: quantidade deve ser maior que zero.
-Erro: armazenamento insuficiente. Disponível: 88MB
+Observe: o MESMO comando 'calcularTaxaSeguro()'
+gerou resultados DIFERENTES para cada objeto. Isso é Polimorfismo!
 ```
 
 ---
 
 ## 📚 Conceitos aplicados por aula
 
-| Aula | Conceito            | O que foi feito                                                       |
-|------|---------------------|-----------------------------------------------------------------------|
-| 01   | Abstração           | Modelagem das primeiras classes no Astah                              |
-| 02   | Classes e Objetos   | Criação de `Passageiro`, `Veiculo` e `SmartPhone`                     |
-| 03   | Encapsulamento      | Atributos `private` com getters e setters validados                   |
-| 04   | Construtores        | Objetos nascem com estado válido e dados obrigatórios                 |
-| 05   | Associação (Tem-Um) | `Viagem` conecta `Passageiro` + `Veiculo`; `SmartPhone` recebe `Dono` |
-| 06   | Herança (É-Um)      | `Carro` e `Moto` estendem `Veiculo`; `Android` e `Iphone` estendem `SmartPhone` |
+| Aula | Conceito            | O que foi feito                                                                          |
+|------|---------------------|------------------------------------------------------------------------------------------|
+| 01   | Abstração           | Modelagem das primeiras classes no Astah                                                 |
+| 02   | Classes e Objetos   | Criação de `Passageiro`, `Veiculo` e `SmartPhone`                                        |
+| 03   | Encapsulamento      | Atributos `private` com getters e setters validados                                      |
+| 04   | Construtores        | Objetos nascem com estado válido e dados obrigatórios                                    |
+| 05   | Associação (Tem-Um) | `Viagem` conecta `Passageiro` + `Veiculo`; `SmartPhone` recebe `Dono`                    |
+| 06   | Herança (É-Um)      | `Carro` e `Moto` estendem `Veiculo`; `Android` e `Iphone` estendem `SmartPhone`         |
+| 07   | Polimorfismo        | `calcularTaxaSeguro()` com `@Override` em `Android` (15%) e `Iphone` (20%) via `List<SmartPhone>` |
 
 ---
 
